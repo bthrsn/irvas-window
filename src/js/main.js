@@ -1,3 +1,7 @@
 import './slider';
+import {modal, openModal, closeModal} from './modules/modal';
 
-console.log(1);
+window.addEventListener('DOMContentLoaded', () => {
+  modal('.popup_engineer', '.popup_engineer_btn', '.popup_engineer_close');
+  modal('.popup', '.phone_link', '.popup_close');
+})
