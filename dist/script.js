@@ -14840,6 +14840,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 window.addEventListener('DOMContentLoaded', function () {
+  // значение переменной, через сколько времени на сайте откроется модальное окно
+  var modalTimerId = setTimeout(function () {
+    return Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["openModal"])('.popup', modalTimerId);
+  }, 60000);
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["modal"])('.popup_engineer', '.popup_engineer_btn', '.popup_engineer_close');
   Object(_modules_modal__WEBPACK_IMPORTED_MODULE_1__["modal"])('.popup', '.phone_link', '.popup_close');
 });
@@ -14869,9 +14873,16 @@ __webpack_require__.r(__webpack_exports__);
 // обработчик события на кнопку закрыть или на подложку
 // функция закрытия модального окна - дисплей none
 // импорт и экспорт функций 3 раза (3 разных кнопки, 2 окна)
-function openModal(modalWindow) {
+function openModal(modalWindow, modalTimerId) {
   var modal = document.querySelector(modalWindow);
-  modal.style.display = 'block';
+  modal.style.display = 'block'; // Чтобы страница не скролилась при открытии модального окна
+  // Сделаем это через bootstrap класс 
+
+  document.body.classList.add('modal-open'); // Чтобы окно не открывалось, если пользователь уже открыл его
+
+  if (modalTimerId) {
+    clearInterval(modalTimerId);
+  }
 }
 
 ;
@@ -14879,16 +14890,21 @@ function openModal(modalWindow) {
 function closeModal(modalWindow) {
   var modal = document.querySelector(modalWindow);
   modal.style.display = 'none';
+  document.body.classList.remove('modal-open');
 }
 
 ;
 
-function modal(modalWindow, modalOpenSelector, modalCloseSelector) {
+function modal(modalWindow, modalOpenSelector, modalCloseSelector, modalTimerId) {
   var modal = document.querySelector(modalWindow),
       modalOpenBtn = document.querySelectorAll(modalOpenSelector),
       modalCloseBtn = document.querySelector(modalCloseSelector);
   modalOpenBtn.forEach(function (button) {
-    button.addEventListener('click', function () {
+    button.addEventListener('click', function (e) {
+      if (e.target) {
+        e.preventDefault();
+      }
+
       openModal(modalWindow);
     });
   });

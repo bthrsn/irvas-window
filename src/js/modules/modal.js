@@ -6,24 +6,36 @@
 // функция закрытия модального окна - дисплей none
 // импорт и экспорт функций 3 раза (3 разных кнопки, 2 окна)
 
-function openModal(modalWindow) {
+function openModal(modalWindow, modalTimerId) {
   const modal = document.querySelector(modalWindow);
   modal.style.display = 'block';
+  // Чтобы страница не скролилась при открытии модального окна
+  // Сделаем это через bootstrap класс 
+  document.body.classList.add('modal-open');
+
+  // Чтобы окно не открывалось, если пользователь уже открыл его
+  if (modalTimerId) {
+    clearInterval(modalTimerId);
+  }
 };
 
 function closeModal(modalWindow) {
   const modal = document.querySelector(modalWindow);
   modal.style.display = 'none';
+  document.body.classList.remove('modal-open');
 };
 
-function modal(modalWindow, modalOpenSelector,modalCloseSelector) {
+function modal(modalWindow, modalOpenSelector,modalCloseSelector, modalTimerId) {
   const modal = document.querySelector(modalWindow),
         modalOpenBtn = document.querySelectorAll(modalOpenSelector),
         modalCloseBtn = document.querySelector(modalCloseSelector);
   
   modalOpenBtn.forEach(button => {
-    button.addEventListener('click', () => {
-    openModal(modalWindow)
+    button.addEventListener('click', (e) => {
+      if (e.target) {
+        e.preventDefault();
+      }
+    openModal(modalWindow);
   });
 });
 
