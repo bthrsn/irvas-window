@@ -21,6 +21,7 @@
     "core-js": "^3.4.2",
     "gulp": "^4.0.2",
     "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.12",
     "webpack-stream": "^5.2.1"
   },
   "dependencies": {
