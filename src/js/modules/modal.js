@@ -20,21 +20,26 @@ function openModal(modalWindow, modalTimerId) {
 };
 
 function closeModal(modalWindow) {
-  const modal = document.querySelector(modalWindow);
+  const modal = document.querySelector(modalWindow),
+        windows = document.querySelectorAll('[data-modal]');
+
+  windows.forEach(window => window.style.display = 'none');
   modal.style.display = 'none';
   document.body.classList.remove('modal-open');
 };
 
-function modal(modalWindow, modalOpenSelector,modalCloseSelector, modalTimerId) {
+function modal(modalWindow, modalOpenSelector, modalCloseSelector, modalTimerId, closeClickOverlay = true) {
   const modal = document.querySelector(modalWindow),
         modalOpenBtn = document.querySelectorAll(modalOpenSelector),
-        modalCloseBtn = document.querySelector(modalCloseSelector);
+        modalCloseBtn = document.querySelector(modalCloseSelector),
+        windows = document.querySelectorAll('[data-modal]');
   
   modalOpenBtn.forEach(button => {
     button.addEventListener('click', (e) => {
       if (e.target) {
         e.preventDefault();
       }
+    windows.forEach(window => window.style.display = 'none');
     openModal(modalWindow);
   });
 });
@@ -44,7 +49,7 @@ function modal(modalWindow, modalOpenSelector,modalCloseSelector, modalTimerId) 
   });
 
   modal.addEventListener('click', (e) => {
-    if (e.target === modal) {
+    if (e.target === modal && closeClickOverlay) {
       closeModal(modalWindow);
     }
   })
