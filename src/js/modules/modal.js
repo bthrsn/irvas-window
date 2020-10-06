@@ -24,15 +24,16 @@ function closeModal(modalWindow) {
         windows = document.querySelectorAll('[data-modal]');
 
   windows.forEach(window => window.style.display = 'none');
-  modal.style.display = 'none';
+  // modal.style.display = 'none';
   document.body.classList.remove('modal-open');
 };
 
-function modal(modalWindow, modalOpenSelector, modalCloseSelector, modalTimerId, closeClickOverlay = true) {
+function modal(modalWindow, modalOpenSelector, modalCloseSelector,   modalTimerId, closeClickOverlay = true) {
   const modal = document.querySelector(modalWindow),
         modalOpenBtn = document.querySelectorAll(modalOpenSelector),
         modalCloseBtn = document.querySelector(modalCloseSelector),
         windows = document.querySelectorAll('[data-modal]');
+        // sendBtn = document.querySelector(modalSendDataButton);
   
   modalOpenBtn.forEach(button => {
     button.addEventListener('click', (e) => {
@@ -52,7 +53,10 @@ function modal(modalWindow, modalOpenSelector, modalCloseSelector, modalTimerId,
     if (e.target === modal && closeClickOverlay) {
       closeModal(modalWindow);
     }
-  })
+  });
+
+  // Закрываем модальное окно после отправки и после исчезновения надписи
+  // sendBtn.addEventListener('submit', () => setTimeout(() => closeModal(modalWindow), 5000));
 };
 
 export {modal, closeModal, openModal};

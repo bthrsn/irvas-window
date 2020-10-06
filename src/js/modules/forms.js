@@ -57,7 +57,7 @@ const forms = (state) => {
           clearInputs();
           setTimeout(() => {
             statusMessage.remove()
-          }, 6000);
+          }, 5000);
         });
     });
   });
