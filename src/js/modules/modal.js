@@ -15,13 +15,15 @@ const modals = () => {
     windows.forEach(window => window.style.display = 'none');
     modal.style.display = 'none';
     document.body.style.overflow = '';
+    document.body.style.marginRight = '0px';
   };
 
-  function bindModal(modalWindow, modalOpenSelector, modalCloseSelector, modalTimerId, closeClickOverlay = true) {
+  function bindModal(modalWindow, modalOpenSelector, modalCloseSelector, closeClickOverlay = true) {
     const modal = document.querySelector(modalWindow),
           modalOpenBtn = document.querySelectorAll(modalOpenSelector),
           modalCloseBtn = document.querySelector(modalCloseSelector),
-          windows = document.querySelectorAll('[data-modal]');
+          windows = document.querySelectorAll('[data-modal]'),
+          scroll = calcScroll();
     
     modalOpenBtn.forEach(button => {
       button.addEventListener('click', (e) => {
@@ -32,6 +34,7 @@ const modals = () => {
       windows.forEach(window => window.style.display = 'none');
       modal.style.display = 'block';
       document.body.style.overflow = 'hidden';
+      document.body.style.marginRight = `${scroll}px`;
     });
   });
 
@@ -54,11 +57,29 @@ const modals = () => {
       }, time);
   }
 
+// Функция, чтобы скролл не прыгал при открытии модального окна
+  function calcScroll() {
+    let div = document.createElement('div');
+
+    // Задаем размеры, чтобы блок занимал какое-то место на странице
+    div.style.width = '50px';
+    div.style.height = '50px';
+    div.style.overflowY = 'scroll';
+    div.style.visibility = 'hidden';
+
+    document.body.append(div);
+    // Вычисление размера прокрутки программно, так как размеры экрана у всех разные
+    let scrollWidth = div.offsetWidth - div.clientWidth;
+    div.remove();
+
+    return scrollWidth;
+  }
+
   bindModal('.popup_engineer', '.popup_engineer_btn', '.popup_engineer_close');
   bindModal('.popup', '.phone_link', '.popup_close');
   bindModal('.popup_calc', '.popup_calc_btn','.popup_calc_close');
-  bindModal('.popup_calc_profile', '.popup_calc_button', '.popup_calc_profile_close', 0, false);
-  bindModal('.popup_calc_end', '.popup_calc_profile_button', '.popup_calc_end_close', 0, false);
+  bindModal('.popup_calc_profile', '.popup_calc_button', '.popup_calc_profile_close', false);
+  bindModal('.popup_calc_end', '.popup_calc_profile_button', '.popup_calc_end_close', false);
 
   showModalByTime('.popup', 60000);
 
