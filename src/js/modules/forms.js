@@ -35,7 +35,7 @@ const forms = (state) => {
 
       const statusMessage = document.createElement('div');
       statusMessage.classList.add('status')
-      item.appendChild(statusMessage);
+      item.append(statusMessage);
 
       const formData = new FormData(item);
       if (item.getAttribute('data-calc') === 'end') {
