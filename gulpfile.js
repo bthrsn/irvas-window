@@ -1,8 +1,9 @@
 "use strict";
 
-const gulp = require("gulp");
-const webpack = require("webpack-stream");
-const browsersync = require("browser-sync");
+const gulp = require("gulp"),
+      ftp = require("vinyl-ftp"),
+      webpack = require("webpack-stream"),
+      browsersync = require("browser-sync");
 
 const dist = "./dist/";
 // const dist = 'D:/OpenServer/domains/test';
