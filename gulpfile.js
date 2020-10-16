@@ -54,9 +54,10 @@ gulp.task("copy-assets", () => {
 
 gulp.task("watch", () => {
     browsersync.init({
-		server: "./dist/",
-		port: 4000,
-		notify: true
+		server: {
+      baseDir: 'http://e99920c3.beget.tech/irvas_window/public_html'
+    },
+		notify: true,
     });
     
     gulp.watch("./src/index.html", gulp.parallel("copy-html"));
@@ -92,6 +93,22 @@ gulp.task("build-prod-js", () => {
                       }
                 }))
                 .pipe(gulp.dest(dist));
+});
+
+// Для выгрузки на хостинг
+gulp.task("deploy", () => {
+  const conn = ftp.create({
+    host: 'e99920c3.beget.tech',
+    user: 'e99920c3',
+    pass: '&U5IR9Her',
+  });
+
+  const globs = [
+    './dist/**/*.*',
+  ];
+
+  return gulp.src(globs, {buffer: false})
+          .pipe(conn.dest('http://e99920c3.beget.tech/irvas_window/public_html'));
 });
 
 gulp.task("default", gulp.parallel("watch", "build"));
