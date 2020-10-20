@@ -100,7 +100,7 @@ gulp.task("deploy", () => {
   const conn = ftp.create({
     host: 'e99920c3.beget.tech',
     user: 'e99920c3',
-    pass: '&U5IR9Her',
+    pass: '1111111',
   });
 
   const globs = [
