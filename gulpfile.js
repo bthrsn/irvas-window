@@ -3,7 +3,8 @@
 const gulp = require("gulp"),
       ftp = require("vinyl-ftp"),
       webpack = require("webpack-stream"),
-      browsersync = require("browser-sync");
+      browsersync = require("browser-sync"),
+      ghPages = require('gulp-gh-pages');
 
 const dist = "./dist/";
 // const dist = 'D:/OpenServer/domains/test';
@@ -100,7 +101,7 @@ gulp.task("deploy", () => {
   const conn = ftp.create({
     host: 'e99920c3.beget.tech',
     user: 'e99920c3',
-    pass: '&U5IR9Her',
+    pass: '1111111',
   });
 
   const globs = [
@@ -109,6 +110,12 @@ gulp.task("deploy", () => {
 
   return gulp.src(globs, {buffer: false})
           .pipe(conn.dest('http://e99920c3.beget.tech/irvas_window/public_html'));
+});
+
+// Для выгрузки на gh pages
+gulp.task('deploy-gh-pages', function() {
+  return gulp.src('./build/**/*')
+    .pipe(ghPages());
 });
 
 gulp.task("default", gulp.parallel("watch", "build"));
