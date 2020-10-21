@@ -112,6 +112,7 @@ gulp.task("deploy", () => {
           .pipe(conn.dest('http://e99920c3.beget.tech/irvas_window/public_html'));
 });
 
+<<<<<<< HEAD
 // Для выгрузки на gh pages
 gulp.task('deploy-gh-pages', function() {
   return gulp.src('./build/**/*')
@@ -119,3 +120,6 @@ gulp.task('deploy-gh-pages', function() {
 });
 
 gulp.task("default", gulp.parallel("watch", "build"));
+=======
+gulp.task("default", gulp.parallel("watch", "build"));
+>>>>>>> 8e1ca37c5b80bcb816f00d84dccbf3b0204d0b05
