@@ -96,30 +96,26 @@ gulp.task("build-prod-js", () => {
                 .pipe(gulp.dest(dist));
 });
 
-// Для выгрузки на хостинг
-gulp.task("deploy", () => {
-  const conn = ftp.create({
-    host: 'e99920c3.beget.tech',
-    user: 'e99920c3',
-    pass: '1111111',
-  });
+// // Для выгрузки на хостинг
+// gulp.task("deploy", () => {
+//   const conn = ftp.create({
+//     host: 'e99920c3.beget.tech',
+//     user: 'e99920c3',
+//     pass: '1111111',
+//   });
 
-  const globs = [
-    './dist/**/*.*',
-  ];
+//   const globs = [
+//     './dist/**/*.*',
+//   ];
 
-  return gulp.src(globs, {buffer: false})
-          .pipe(conn.dest('http://e99920c3.beget.tech/irvas_window/public_html'));
-});
+//   return gulp.src(globs, {buffer: false})
+//           .pipe(conn.dest('http://e99920c3.beget.tech/irvas_window/public_html'));
+// });
 
-<<<<<<< HEAD
-// Для выгрузки на gh pages
-gulp.task('deploy-gh-pages', function() {
-  return gulp.src('./build/**/*')
+// Для выгрузки на github pages
+gulp.task('deploy', function() {
+  return gulp.src('./dist/**')
     .pipe(ghPages());
 });
 
 gulp.task("default", gulp.parallel("watch", "build"));
-=======
-gulp.task("default", gulp.parallel("watch", "build"));
->>>>>>> 8e1ca37c5b80bcb816f00d84dccbf3b0204d0b05
