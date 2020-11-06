@@ -11,7 +11,7 @@ window.addEventListener('DOMContentLoaded', () => {
   // Переменная для статуса собранных  данных от пользователя
   let modalState = {},
       // Переменная для таймера
-      deadline = '2020-10-31'
+      deadline = '2020-12-31'
 
   changeModalState(modalState);
 
